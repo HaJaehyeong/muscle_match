@@ -1,5 +1,5 @@
 package la.DAO;
-import DbManager;
+import la.DbManager;
 import la.bean.TrainingBean;
 
 
@@ -14,16 +14,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
-import java.sql.Connection;
-import java.util.Date;
-import java.util.List;
-
-import la.bean.TrainingBean;
-
-
 public class TrainingDAO {
     private Connection con;
-<<<<<<< Updated upstream
     private DbManager db;
     private String sql = null;
     private PreparedStatement st = null;
@@ -103,6 +95,26 @@ public class TrainingDAO {
 
     }
 
+    public List<TrainingBean> findTrainingBytrainee(int traineeId) throws DAOException{
+        if(con == null) db.getConnection(con);
+        try {
+            String sql = "select * from TRAINING where TRAINING.TRAINEE_ID = ?";
+
+            st = con.prepareStatement(sql);
+            st.setInt(1, traineeId);
+            rs = st.executeQuery();
+            List<TrainingBean> list = new ArrayList<>();
+            while (rs.next()) {
+                createTrainingBeanList(list, rs);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DAOException("レコードの取得に失敗しました。");
+        } finally {
+            db.closeResources(st, rs, con);
+        }
+    }
 
     private void createTrainingBeanList(List<TrainingBean> list, ResultSet rs) throws DAOException{
         try {
@@ -125,44 +137,30 @@ public class TrainingDAO {
         }
 
     }
-=======
-    TrainingDAO(){}
 
-//    List<TrainingBean> findAllTraining(){
+
+    public List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) {
+
+    }
+
+    public void joinTraining(int trainingId, int traineeId) {
+
+    }
+
+    public void cancelTraining(int trainingId, int traineeId) {
+
+    }
+
+//    void createTraining() {
 //
 //    }
 //
-//    List<TrainingBean> findTrainingByfilter(int muscleCategoryId, int areaId, Date date) {
+//    void editTraining() {
 //
 //    }
 //
-//    List<TrainingBean> findTrainingBytrainee(int traineeId) {
-//
-//    }
-//
-//    List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) {
+//    void removeTraining() {
 //
 //    }
 
-    void joinTraining(int trainingId, int traineeId) {
-
-    }
-
-    void cancelTraining(int trainingId, int traineeId) {
-
-    }
-
-    void createTraining() {
-
-    }
-
-    void editTraining() {
-
-    }
-
-    void removeTraining() {
-
-    }
-
->>>>>>> Stashed changes
 }
