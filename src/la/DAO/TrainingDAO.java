@@ -134,9 +134,32 @@ public class TrainingDAO {
 
     }
 
-//    public List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) {
-//
-//    }
+    public List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) throws DAOException{
+        if(con == null) db.getConnection();
+        try {
+            String sql = "select * from JOIN_TRAINING as jt" +
+                    "inner join TRAINING as tr" +
+                    "on tr.TRAINING_ID = jt.TRAINING_ID" +
+                    "inner join MUSCLE_CATEGORY as mc" +
+                    "on tr.MUSCLE_CATEGORY_ID = mc.MUSCLE_CATEGORY_ID" +
+                    "inner join AREA as ar" +
+                    "on tr.AREA_ID = ar.AREA_ID" +
+                    "where jt.TRAINEE_ID = ?;";
+            st = con.prepareStatement(sql);
+            st.setInt(1, traineeId);
+            rs = st.executeQuery();
+            List<TrainingBean> list = new ArrayList<>();
+            while (rs.next()) {
+                createTrainingBeanList(list, rs);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DAOException("レコードの取得に失敗しました。");
+        } finally {
+            db.closeResources(st, rs, con);
+        }
+    }
 
     // 참가 버튼을 누르면 레코드 추가
     public void joinTraining(int trainingId, int traineeId) throws DAOException{
