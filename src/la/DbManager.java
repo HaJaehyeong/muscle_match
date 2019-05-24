@@ -11,7 +11,7 @@ public class DbManager {
     private String user = "root";
     private String password = "password";
 
-    public Connection getConnection(Connection con) throws DAOException {
+    public Connection getConnection() throws DAOException {
         try {
             Class.forName(driverName);
             con = DriverManager.getConnection(url, user, password);
@@ -23,7 +23,7 @@ public class DbManager {
 
     public void closeResources(PreparedStatement st, ResultSet rs, Connection c) {
         try {
-            if(c != null) {
+            if (c != null) {
                 c.close();
                 c = null;
             }
