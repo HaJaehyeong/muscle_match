@@ -34,7 +34,7 @@ public class TrainingDAO {
             // state(join, cancel) stateの値がない場合は、nullを返す（仕方なくnullを返すようにしている。）
             // MUSCLE_CATEGORY_NAME AREA_NAMEも取得
             String sql = "select *, jt.STATE, m.MUSCLE_CATEGORY_NAME, a.AREA_NAME " +
-                    "from TRAINING as tr" +
+                    " from TRAINING as tr" +
                     " left outer join JOIN_TRAINING as jt" +
                     " on tr.TRAINING_ID = jt.TRAINING_ID && tr.TRAINEE_ID = jt.TRAINEE_ID" +
                     " inner join MUSCLE_CATEGORY as m" +
@@ -138,13 +138,13 @@ public class TrainingDAO {
         if(con == null) db.getConnection();
         try {
             String sql = "select * from JOIN_TRAINING as jt" +
-                    "inner join TRAINING as tr" +
-                    "on tr.TRAINING_ID = jt.TRAINING_ID" +
-                    "inner join MUSCLE_CATEGORY as mc" +
-                    "on tr.MUSCLE_CATEGORY_ID = mc.MUSCLE_CATEGORY_ID" +
-                    "inner join AREA as ar" +
-                    "on tr.AREA_ID = ar.AREA_ID" +
-                    "where jt.TRAINEE_ID = ?;";
+                    " inner join TRAINING as tr" +
+                    " on tr.TRAINING_ID = jt.TRAINING_ID" +
+                    " inner join MUSCLE_CATEGORY as mc" +
+                    " on tr.MUSCLE_CATEGORY_ID = mc.MUSCLE_CATEGORY_ID" +
+                    " inner join AREA as ar" +
+                    " on tr.AREA_ID = ar.AREA_ID" +
+                    " where jt.TRAINEE_ID = ?;";
             st = con.prepareStatement(sql);
             st.setInt(1, traineeId);
             rs = st.executeQuery();
