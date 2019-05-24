@@ -112,7 +112,32 @@ public class TrainingDAO {
         }
     }
 
-    public List<TrainingBean>
+    public List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) throws DAOException{
+        if(con == null) db.getConnection();
+        try {
+            String sql = "select * from JOIN_TRAINING as jt" +
+                            "inner join TRAINING as tr" +
+                                "on tr.TRAINING_ID = jt.TRAINING_ID" +
+                            "inner join MUSCLE_CATEGORY as mc" +
+                                "on tr.MUSCLE_CATEGORY_ID = mc.MUSCLE_CATEGORY_ID" +
+                            "inner join AREA as ar" +
+                                "on tr.AREA_ID = ar.AREA_ID" +
+                            "where jt.TRAINEE_ID = ?;";
+            st = con.prepareStatement(sql);
+            st.setInt(1, traineeId);
+            rs = st.executeQuery();
+            List<TrainingBean> list = new ArrayList<>();
+            while (rs.next()) {
+                createTrainingBeanList(list, rs);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DAOException("レコードの取得に失敗しました。");
+        } finally {
+            db.closeResources(st, rs, con);
+        }
+    }
 
     private void createTrainingBeanList(List<TrainingBean> list, ResultSet rs) throws DAOException{
         try {
@@ -133,10 +158,6 @@ public class TrainingDAO {
         } catch (Exception e) {
             throw new DAOException("データベースの操作に失敗しました。");
         }
-
-    }
-
-    public List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) {
 
     }
 

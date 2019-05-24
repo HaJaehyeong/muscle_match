@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet("/profileController")
 public class ProfileController extends HttpServlet {
 
-    protected void doGet (HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter("trainee_id"));

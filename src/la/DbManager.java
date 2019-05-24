@@ -23,7 +23,7 @@ public class DbManager {
 
     public void closeResources(PreparedStatement st, ResultSet rs, Connection c) {
         try {
-            if(c != null) {
+            if (c != null) {
                 c.close();
                 c = null;
             }
