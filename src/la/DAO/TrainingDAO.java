@@ -71,10 +71,11 @@ public class TrainingDAO {
             st.setInt(1, muscleCategoryId);
             st.setInt(2, areaId);
 
-            // TODO: String DateをDateTimeに変更する
+            // 2019-06-01 19:00:00のような文字列にフォーマットを整える
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             LocalDateTime dateTimeData = LocalDateTime.parse(date, dtf);
-            st.setDate(3, dateTimeData);
+            String dateTimeDataStr = dateTimeData.toString();
+            st.setString(3, dateTimeDataStr);
 
             rs = st.executeQuery();
             List<TrainingBean> list = new ArrayList<>();
