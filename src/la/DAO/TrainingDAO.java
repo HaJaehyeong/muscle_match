@@ -72,7 +72,7 @@ public class TrainingDAO {
             st.setInt(2, areaId);
 
             // 2019-06-01 19:00:00のような文字列にフォーマットを整える
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime dateTimeData = LocalDateTime.parse(date, dtf);
             String dateTimeDataStr = dateTimeData.toString();
             st.setString(3, dateTimeDataStr);
