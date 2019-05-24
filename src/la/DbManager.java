@@ -8,8 +8,8 @@ public class DbManager {
     private Connection con;
     private String driverName = "com.mysql.jdbc.Driver";
     private String url = "jdbc:mysql://localhost:3306/MUSCLE_MATCH";
-    private String user = "student";
-    private String password = "1234";
+    private String user = "root";
+    private String password = "password";
 
     public Connection getConnection() throws DAOException {
         try {
