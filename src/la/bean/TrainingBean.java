@@ -1,8 +1,9 @@
 package la.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class TrainingBean {
+public class TrainingBean implements Serializable {
     private int trainingId;
     private String trainingName;
     private int traineeId;
@@ -25,39 +26,41 @@ public class TrainingBean {
         this.state = state;
     }
 
-    void setTrainingName(String name) {
+    public void setTrainingName(String name) {
         this.trainingName = name;
     }
-    void setTraineeId(int traineeId) {
+    public void setTraineeId(int traineeId) {
         this.traineeId = traineeId;
     }
-    void setMuscleCategoryId(int muscleCategoryId) {
+    public void setMuscleCategoryId(int muscleCategoryId) {
         this.muscleCategoryId = muscleCategoryId;
     }
-    void setAreaId(int areaId) {
+    public void setAreaId(int areaId) {
         this.areaId = areaId;
     }
-    void setDate(Date date) {
+    public void setDate(Date date) {
         this.date = date;
     }
+
     void setType(String type) {
         this.type = type;
     }
-    int getTrainingId() {
+    public int getTrainingId() {
         return this.trainingId;
     }
-    int getTraineeId() {
+    public int getTraineeId() {
         return this.traineeId;
     }
-    int getMuscleCategoryId() {
+    public int getMuscleCategoryId() {
         return this.muscleCategoryId;
     }
-    int getAreaId() {
+    public int getAreaId() {
         return this.areaId;
     }
-    Date getDate() {
+    public Date getDate() {
         return this.date;
     }
+
     String getType() {
         return this.type;
     }
