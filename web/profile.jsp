@@ -19,6 +19,8 @@
     <c:param name="pageTitle" value="${pageTitle}"/>
 </c:import>
 
+${Trainee.getTraineeName()}
+
 <jsp:include page="common/insertScripts.jsp"/>
 
 </body>

@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class DbManager {
     private Connection con;
-    private String driverName = "com.mysql.jdbc.Driver";
+    private String driverName = "com.mysql.cj.jdbc.Driver";
     private String url = "jdbc:mysql://localhost:3306/MUSCLE_MATCH";
     private String user = "root";
     private String password = "password";
@@ -16,6 +16,7 @@ public class DbManager {
             Class.forName(driverName);
             con = DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new DAOException("접속실패（接続失敗）");
         }
         return con;
