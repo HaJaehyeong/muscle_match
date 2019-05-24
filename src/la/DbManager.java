@@ -2,9 +2,7 @@ package la;
 
 import la.DAO.DAOException;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DbManager {
     private Connection con;
@@ -23,10 +21,12 @@ public class DbManager {
         return con;
     }
 
-    public void closeConnection(Connection c) throws SQLException {
+    public void closeResources(PreparedStatement st, ResultSet rs, Connection c) throws SQLException {
         if(c != null) {
             c.close();
             c = null;
         }
+        if (rs != null) rs.close();
+        if (st != null) st.close();
     }
 }
