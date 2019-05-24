@@ -16,17 +16,21 @@ public class DbManager {
             Class.forName(driverName);
             con = DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
-            throw new DAOException("접속실패");
+            throw new DAOException("접속실패（接続失敗）");
         }
         return con;
     }
 
-    public void closeResources(PreparedStatement st, ResultSet rs, Connection c) throws SQLException {
-        if(c != null) {
-            c.close();
-            c = null;
+    public void closeResources(PreparedStatement st, ResultSet rs, Connection c) {
+        try {
+            if(c != null) {
+                c.close();
+                c = null;
+            }
+            if (rs != null) rs.close();
+            if (st != null) st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        if (rs != null) rs.close();
-        if (st != null) st.close();
     }
 }
