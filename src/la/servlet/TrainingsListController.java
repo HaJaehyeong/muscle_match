@@ -52,8 +52,8 @@ public class TrainingsListController {
 
 
                 //検索条件に引っかかるレコードの表示
-                //List<TrainingBean> list = dao.findTrainingByfilter(muscleCategory, area, date);
-                //request.setAttribute("items", list);
+                List<TrainingBean> list = dao.findTrainingByFilter(muscleCategory, area, date);
+                request.setAttribute("items", list);
                 //Listをリクエストスコープに入れてJSPへフォーワードする
                 gotoPage(request, response, "/trainingList.jsp");
 
