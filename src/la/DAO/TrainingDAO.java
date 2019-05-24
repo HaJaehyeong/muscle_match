@@ -1,15 +1,11 @@
 package la.DAO;
-import DbManager;
+import la.DbManager;
 import la.bean.TrainingBean;
 
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,7 +19,6 @@ import la.bean.TrainingBean;
 
 public class TrainingDAO {
     private Connection con;
-<<<<<<< Updated upstream
     private DbManager db;
     private String sql = null;
     private PreparedStatement st = null;
@@ -31,13 +26,13 @@ public class TrainingDAO {
 
     public TrainingDAO() throws DAOException {
         db = new DbManager();
-        con = db.getConnection(con);
+        con = db.getConnection();
     }
 
-    public List<TrainingBean> findAllTraining() throws DAOException{
+    public List<TrainingBean> findAllTraining() throws DAOException, SQLException {
         // 全てのトレーニングを取得する
         if(con == null) {
-            con = db.getConnection(con);
+            con = db.getConnection();
         }
 
         try {
@@ -69,8 +64,8 @@ public class TrainingDAO {
         }
     }
 
-    public List<TrainingBean> findTrainingByFilter(int muscleCategoryId, int areaId, String date) throws DAOException {
-        if(con == null) db.getConnection(con);
+    public List<TrainingBean> findTrainingByFilter(int muscleCategoryId, int areaId, String date) throws DAOException, SQLException {
+        if(con == null) db.getConnection();
         try {
             String sql = "select * from TRAINING " +
                             "where TRAINING.MUSCLE_CATEGORY_ID = ?" +
@@ -84,9 +79,9 @@ public class TrainingDAO {
             st.setInt(2, areaId);
 
             // TODO: String DateをDateTimeに変更する
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime dateTimeData = LocalDateTime.parse(date, dtf);
-            st.setDate(3, dateTimeData);
+//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//            LocalDateTime dateTimeData = LocalDateTime.parse(date, dtf);
+//            st.setDate(3, dateTimeData);
 
             rs = st.executeQuery();
             List<TrainingBean> list = new ArrayList<>();
@@ -125,44 +120,6 @@ public class TrainingDAO {
         }
 
     }
-=======
-    TrainingDAO(){}
 
-//    List<TrainingBean> findAllTraining(){
-//
-//    }
-//
-//    List<TrainingBean> findTrainingByfilter(int muscleCategoryId, int areaId, Date date) {
-//
-//    }
-//
-//    List<TrainingBean> findTrainingBytrainee(int traineeId) {
-//
-//    }
-//
-//    List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) {
-//
-//    }
 
-    void joinTraining(int trainingId, int traineeId) {
-
-    }
-
-    void cancelTraining(int trainingId, int traineeId) {
-
-    }
-
-    void createTraining() {
-
-    }
-
-    void editTraining() {
-
-    }
-
-    void removeTraining() {
-
-    }
-
->>>>>>> Stashed changes
 }
