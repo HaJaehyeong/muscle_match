@@ -26,7 +26,7 @@ public class TraineeDAO {
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT * from TRAINEE where TRAINEE_ID ="+traineeId;
+            String sql = "SELECT * from TRAINEE where TRAINEE_ID =" + traineeId;
             st = con.prepareStatement(sql);
             rs = st.executeQuery();
             TraineeBean bean = null;
@@ -43,8 +43,8 @@ public class TraineeDAO {
             throw new DAOException("fail");
         } finally {
             try {
-                if(rs != null) rs.close();
-                if(st != null) st.close();
+                if (rs != null) rs.close();
+                if (st != null) st.close();
 
                 dm.closeResources(st, rs, con);
             } catch (Exception e) {

@@ -17,7 +17,7 @@ public class TrainingBean implements Serializable {
     private String areaName;
 
     public TrainingBean(int trainingId, String trainingName, int traineeId, int muscleCategoryId,
-                    int areaId, Date date, String type, String state, String muscleCategoryName, String areaName) {
+                        int areaId, Date date, String type, String state, String muscleCategoryName, String areaName) {
         this.trainingId = trainingId;
         this.trainingName = trainingName;
         this.traineeId = traineeId;
@@ -33,15 +33,19 @@ public class TrainingBean implements Serializable {
     public void setTrainingName(String name) {
         this.trainingName = name;
     }
+
     public void setTraineeId(int traineeId) {
         this.traineeId = traineeId;
     }
+
     public void setMuscleCategoryId(int muscleCategoryId) {
         this.muscleCategoryId = muscleCategoryId;
     }
+
     public void setAreaId(int areaId) {
         this.areaId = areaId;
     }
+
     public void setDate(Date date) {
         this.date = date;
     }
@@ -49,18 +53,23 @@ public class TrainingBean implements Serializable {
     void setType(String type) {
         this.type = type;
     }
+
     public int getTrainingId() {
         return this.trainingId;
     }
+
     public int getTraineeId() {
         return this.traineeId;
     }
+
     public int getMuscleCategoryId() {
         return this.muscleCategoryId;
     }
+
     public int getAreaId() {
         return this.areaId;
     }
+
     public Date getDate() {
         return this.date;
     }
