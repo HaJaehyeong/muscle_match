@@ -10,10 +10,12 @@ public class TrainingBean implements Serializable {
     private int muscleCategoryId;
     private int areaId;
     private Date date;
-    private Enum type;
+    private String type;
+    // join trainingのstateを管理する
+    private String state;
 
     public TrainingBean(int trainingId, String trainingName, int traineeId, int muscleCategoryId,
-                    int areaId, Date date, Enum type) {
+                    int areaId, Date date, String type, String state) {
         this.trainingId = trainingId;
         this.trainingName = trainingName;
         this.traineeId = traineeId;
@@ -21,6 +23,7 @@ public class TrainingBean implements Serializable {
         this.areaId = areaId;
         this.date = date;
         this.type = type;
+        this.state = state;
     }
 
     public void setTrainingName(String name) {
@@ -38,7 +41,8 @@ public class TrainingBean implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-    public void setType(Enum type) {
+
+    void setType(String type) {
         this.type = type;
     }
     public int getTrainingId() {
@@ -56,7 +60,8 @@ public class TrainingBean implements Serializable {
     public Date getDate() {
         return this.date;
     }
-    public Enum getType() {
+
+    String getType() {
         return this.type;
     }
 
