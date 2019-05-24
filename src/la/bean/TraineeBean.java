@@ -1,24 +1,26 @@
 package la.bean;
 
-public class TraineeBean {
+import java.io.Serializable;
+
+public class TraineeBean implements Serializable {
     private int traineeId;
     private String traineeName;
 
-    TraineeBean(int traineeId, String traineeName) {
+    public TraineeBean(int traineeId, String traineeName) {
         this.traineeId = traineeId;
         this.traineeName = traineeName;
     }
 
-    void setTraineeId(int traineeId){
+    public void setTraineeId(int traineeId){
         this.traineeId = traineeId;
     }
-    void setTraineeName(String traineeName){
+    public void setTraineeName(String traineeName){
         this.traineeName = traineeName;
     }
-    int getTraineeId(){
+    public int getTraineeId(){
         return this.traineeId;
     }
-    String getTraineeName(){
+    public String getTraineeName(){
         return this.traineeName;
     }
 
