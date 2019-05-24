@@ -20,26 +20,43 @@
 </c:import>
 
 <div class="container">
-    <form class="form-inline">
-        <label class="sr-only" for="inlineFormInputName2">Name</label>
-        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Jane Doe">
-
-        <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-        <div class="input-group mb-2 mr-sm-2">
-            <div class="input-group-prepend">
-                <div class="input-group-text">@</div>
-            </div>
-            <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
+    <form class="form-row">
+        <div class="form-group col-md-3">
+            <label class="sr-only" for="inlineFormInputPart">Name</label>
+            <select class="form-control mb-2 mr-sm-2" id="inlineFormInputPart" placeholder="部位">
+                <option selected>部位</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
         </div>
-
-        <div class="form-check mb-2 mr-sm-2">
-            <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-            <label class="form-check-label" for="inlineFormCheck">
-                Remember me
-            </label>
+        <div class="form-group col-md-3">
+            <label class="sr-only" for="inlineFormInputDate">Date</label>
+            <select class="form-control mb-2 mr-sm-2" id="inlineFormInputDate" placeholder="日時">
+                <option selected>日時</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
         </div>
-
-        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        <div class="form-group col-md-3">
+            <label class="sr-only" for="inlineFormInputPlace">Place</label>
+            <select class="form-control mb-2 mr-sm-2" id="inlineFormInputPlace" placeholder="場所">
+                <option selected>場所</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </div>
     </form>
     <table class="table">
         <tbody>
@@ -51,7 +68,7 @@
                 <a href="/mm/profileController?trainee_id=2">TICH(id:2)</a>
             </td>
             <td>
-                <a class="btn btn-primary" href="/mm/trainingController?action=join" role="button">JOIN</a>
+                <a class="btn btn-primary" href="/mm/trainingController?action=join&training_id=11&trainee_id=1" role="button">JOIN</a>
             </td>
         </tr>
         <tr>
@@ -62,7 +79,7 @@
                 <a href="/mm/profileController?trainee_id=3">KINSYO(id:3)</a>
             </td>
             <td>
-                <a class="btn btn btn-success" href="/mm/trainingController?action=cancel" role="button">JOINED</a>
+                <a class="btn btn btn-success" href="/mm/trainingController?action=cancel&training_id=11&trainee_id=1" role="button">JOINED</a>
             </td>
         </tr>
         <tr>
