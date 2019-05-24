@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/ProfileController")
+@WebServlet("/profileController")
 public class ProfileController extends HttpServlet {
 
     protected void doGet (HttpServletRequest request, HttpServletResponse response)
@@ -23,7 +23,7 @@ public class ProfileController extends HttpServlet {
             TraineeDAO dao = new TraineeDAO();
             TraineeBean tb = dao.findByTraineeId(id);
             request.setAttribute("Trainee", tb);
-            RequestDispatcher rd = request.getRequestDispatcher("/common/novbar.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
             rd.forward(request, response);
         } catch (DAOException e) {
             e.printStackTrace();
