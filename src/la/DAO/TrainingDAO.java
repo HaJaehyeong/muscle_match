@@ -10,13 +10,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 
-import java.sql.Connection;
-import java.util.Date;
-import java.util.List;
-
-import la.bean.TrainingBean;
-
-
 public class TrainingDAO {
     private Connection con;
     private DbManager db;
@@ -26,13 +19,13 @@ public class TrainingDAO {
 
     public TrainingDAO() throws DAOException {
         db = new DbManager();
-        con = db.getConnection();
+        con = db.getConnection(con);
     }
 
     public List<TrainingBean> findAllTraining() throws DAOException, SQLException {
         // 全てのトレーニングを取得する
         if(con == null) {
-            con = db.getConnection();
+            con = db.getConnection(con);
         }
 
         try {
@@ -65,7 +58,7 @@ public class TrainingDAO {
     }
 
     public List<TrainingBean> findTrainingByFilter(int muscleCategoryId, int areaId, String date) throws DAOException, SQLException {
-        if(con == null) db.getConnection();
+        if(con == null) db.getConnection(con);
         try {
             String sql = "select * from TRAINING " +
                             "where TRAINING.MUSCLE_CATEGORY_ID = ?" +
@@ -79,9 +72,9 @@ public class TrainingDAO {
             st.setInt(2, areaId);
 
             // TODO: String DateをDateTimeに変更する
-//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//            LocalDateTime dateTimeData = LocalDateTime.parse(date, dtf);
-//            st.setDate(3, dateTimeData);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime dateTimeData = LocalDateTime.parse(date, dtf);
+            st.setDate(3, dateTimeData);
 
             rs = st.executeQuery();
             List<TrainingBean> list = new ArrayList<>();
@@ -98,6 +91,26 @@ public class TrainingDAO {
 
     }
 
+    public List<TrainingBean> findTrainingBytrainee(int traineeId) throws DAOException{
+        if(con == null) db.getConnection(con);
+        try {
+            String sql = "select * from TRAINING where TRAINING.TRAINEE_ID = ?";
+
+            st = con.prepareStatement(sql);
+            st.setInt(1, traineeId);
+            rs = st.executeQuery();
+            List<TrainingBean> list = new ArrayList<>();
+            while (rs.next()) {
+                createTrainingBeanList(list, rs);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DAOException("レコードの取得に失敗しました。");
+        } finally {
+            db.closeResources(st, rs, con);
+        }
+    }
 
     private void createTrainingBeanList(List<TrainingBean> list, ResultSet rs) throws DAOException{
         try {
@@ -121,5 +134,27 @@ public class TrainingDAO {
 
     }
 
+    public List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) {
 
+    }
+
+    public void joinTraining(int trainingId, int traineeId) {
+
+    }
+
+    public void cancelTraining(int trainingId, int traineeId) {
+
+    }
+
+//    void createTraining() {
+//
+//    }
+//
+//    void editTraining() {
+//
+//    }
+//
+//    void removeTraining() {
+//
+//    }
 }
