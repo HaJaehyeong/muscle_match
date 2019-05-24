@@ -108,7 +108,9 @@ public class TrainingDAO {
             int traineeId = rs.getInt("TRAINEE_ID");
             // join or cancel or null(参加・キャンセルもしていないトレーニング)
             String state = rs.getString("STATE");
-            TrainingBean bean = new TrainingBean(trainingId, trainingName, traineeId, muscleCategoryId, areaId, date, type, state);
+            String muscleCategoryName = rs.getString("muscleCategoryName");
+            String areaName = rs.getString("areaName");
+            TrainingBean bean = new TrainingBean(trainingId, trainingName, traineeId, muscleCategoryId, areaId, date, type, state, muscleCategoryName, areaName);
             list.add(bean);
         } catch (Exception e) {
             throw new DAOException("データベースの操作に失敗しました。");

@@ -12,9 +12,11 @@ public class TrainingBean {
     private String type;
     // join trainingのstateを管理する
     private String state;
+    private String muscleCategoryName;
+    private String areaName;
 
     public TrainingBean(int trainingId, String trainingName, int traineeId, int muscleCategoryId,
-                    int areaId, Date date, String type, String state) {
+                    int areaId, Date date, String type, String state, String muscleCategoryName, String areaName) {
         this.trainingId = trainingId;
         this.trainingName = trainingName;
         this.traineeId = traineeId;
@@ -23,6 +25,8 @@ public class TrainingBean {
         this.date = date;
         this.type = type;
         this.state = state;
+        this.muscleCategoryName = muscleCategoryName;
+        this.areaName = areaName;
     }
 
     void setTrainingName(String name) {
