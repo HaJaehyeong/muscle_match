@@ -19,6 +19,34 @@
     <c:param name="pageTitle" value="${pageTitle}"/>
 </c:import>
 
+<div class="container">
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>胸</td>
+            <td>2019/5/23</td>
+            <td>渋谷</td>
+            <td>キンジー</td>
+            <td>ボタン</td>
+        </tr>
+        <tr>
+            <td>胸</td>
+            <td>2019/5/23</td>
+            <td>渋谷</td>
+            <td>キンジー</td>
+            <td>ボタン</td>
+        </tr>
+        <tr>
+            <td>胸</td>
+            <td>2019/5/23</td>
+            <td>渋谷</td>
+            <td>キンジー</td>
+            <td>ボタン</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 <jsp:include page="common/insertScripts.jsp"/>
 
 </body>
