@@ -19,7 +19,9 @@
     <c:param name="pageTitle" value="${pageTitle}"/>
 </c:import>
 
-${Trainee.getTraineeName()}
+<div class="container">
+    ${Trainee.getTraineeName()}
+</div>
 
 <jsp:include page="common/insertScripts.jsp"/>
 

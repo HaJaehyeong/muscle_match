@@ -12,13 +12,21 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/mm/">
             <img src="static/img/muscle_match_logo3_white.png" height="30" alt="">
         </a>
         <div class="collapse navbar-collapse justify-content-center">
             <ul class="navbar-nav">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">${param.pageTitle}</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/mm/profileController?trainee_id=1">mypage</a>
                 </li>
             </ul>
         </div>
