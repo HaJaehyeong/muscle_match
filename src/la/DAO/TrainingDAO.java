@@ -19,13 +19,13 @@ public class TrainingDAO {
 
     public TrainingDAO() throws DAOException {
         db = new DbManager();
-        con = db.getConnection(con);
+        con = db.getConnection();
     }
 
     public List<TrainingBean> findAllTraining() throws DAOException, SQLException {
         // 全てのトレーニングを取得する
         if(con == null) {
-            con = db.getConnection(con);
+            con = db.getConnection();
         }
 
         try {
@@ -58,7 +58,7 @@ public class TrainingDAO {
     }
 
     public List<TrainingBean> findTrainingByFilter(int muscleCategoryId, int areaId, String date) throws DAOException, SQLException {
-        if(con == null) db.getConnection(con);
+        if(con == null) db.getConnection();
         try {
             String sql = "select * from TRAINING " +
                             "where TRAINING.MUSCLE_CATEGORY_ID = ?" +
@@ -92,7 +92,7 @@ public class TrainingDAO {
     }
 
     public List<TrainingBean> findTrainingBytrainee(int traineeId) throws DAOException{
-        if(con == null) db.getConnection(con);
+        if(con == null) db.getConnection();
         try {
             String sql = "select * from TRAINING where TRAINING.TRAINEE_ID = ?";
 
@@ -111,6 +111,8 @@ public class TrainingDAO {
             db.closeResources(st, rs, con);
         }
     }
+
+    public List<TrainingBean>
 
     private void createTrainingBeanList(List<TrainingBean> list, ResultSet rs) throws DAOException{
         try {
