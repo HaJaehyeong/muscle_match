@@ -46,7 +46,7 @@ public class TraineeDAO {
                 if(rs != null) rs.close();
                 if(st != null) st.close();
 
-                dm.closeConnection(con);
+                dm.closeResources(st, rs, con);
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new DAOException("close fail");
