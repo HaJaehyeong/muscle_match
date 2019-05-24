@@ -9,10 +9,12 @@ public class TrainingBean {
     private int muscleCategoryId;
     private int areaId;
     private Date date;
-    private Enum type;
+    private String type;
+    // join trainingのstateを管理する
+    private String state;
 
-    TrainingBean(int trainingId, String trainingName, int traineeId, int muscleCategoryId,
-                    int areaId, Date date, Enum type) {
+    public TrainingBean(int trainingId, String trainingName, int traineeId, int muscleCategoryId,
+                    int areaId, Date date, String type, String state) {
         this.trainingId = trainingId;
         this.trainingName = trainingName;
         this.traineeId = traineeId;
@@ -20,6 +22,7 @@ public class TrainingBean {
         this.areaId = areaId;
         this.date = date;
         this.type = type;
+        this.state = state;
     }
 
     void setTrainingName(String name) {
@@ -37,7 +40,7 @@ public class TrainingBean {
     void setDate(Date date) {
         this.date = date;
     }
-    void setType(Enum type) {
+    void setType(String type) {
         this.type = type;
     }
     int getTrainingId() {
@@ -55,7 +58,7 @@ public class TrainingBean {
     Date getDate() {
         return this.date;
     }
-    Enum getType() {
+    String getType() {
         return this.type;
     }
 
