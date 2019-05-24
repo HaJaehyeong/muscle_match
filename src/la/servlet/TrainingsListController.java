@@ -2,6 +2,7 @@ package la.servlet;
 
 import java.io.IOException;
 import java.rmi.server.ServerCloneException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ import la.DAO.TrainingDAO;
 @WebServlet("/TrainingsListController")
 public class TrainingsListController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
+            throws ServletException, IOException, SQLException {
 
         //モデルを使って全トレーニングを表示する
         try {
@@ -75,7 +76,7 @@ public class TrainingsListController {
         rd.forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException, SQLException{
         doGet(request, response);
 
 
