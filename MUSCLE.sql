@@ -49,6 +49,7 @@ DROP TABLE IF EXISTS `JOIN_TRAINING`;
 CREATE TABLE `JOIN_TRAINING` (
   `TRAINING_ID` int(11) NOT NULL,
   `TRAINEE_ID` int(11) NOT NULL,
+  `STATE` enum('join','cancel') COLLATE utf8_bin DEFAULT NULL,
   KEY `TRAINING_ID_JT_FK_idx` (`TRAINING_ID`),
   KEY `TRAINEE_ID_JT_FK_idx` (`TRAINEE_ID`),
   CONSTRAINT `TRAINEE_ID_JT_FK` FOREIGN KEY (`TRAINEE_ID`) REFERENCES `trainee` (`TRAINEE_ID`),
@@ -62,7 +63,7 @@ CREATE TABLE `JOIN_TRAINING` (
 
 LOCK TABLES `JOIN_TRAINING` WRITE;
 /*!40000 ALTER TABLE `JOIN_TRAINING` DISABLE KEYS */;
-INSERT INTO `JOIN_TRAINING` VALUES (1,2),(1,3),(2,4),(2,1),(2,3),(3,3),(4,3),(5,3),(6,3),(7,3),(8,3),(9,3),(10,1),(10,3),(11,4),(11,2),(11,1),(11,3),(12,2),(12,3),(13,3),(14,3),(15,3),(16,3),(17,3),(18,3),(19,3),(20,1),(20,3);
+INSERT INTO `JOIN_TRAINING` VALUES (1,2,'join'),(1,3,NULL),(2,4,'join'),(2,1,'join'),(2,3,'join'),(3,3,'join'),(4,3,'join'),(5,3,'join'),(6,3,'join'),(7,3,'join'),(8,3,'join'),(9,3,'join'),(10,1,'join'),(10,3,'join'),(11,4,'join'),(11,2,'join'),(11,1,'join'),(11,3,'join'),(12,2,'join'),(12,3,'join'),(13,3,'join'),(14,3,'join'),(15,3,'join'),(16,3,'join'),(17,3,'join'),(18,3,'join'),(19,3,'join'),(20,1,'join'),(20,3,'join'),(1,4,'join'),(11,1,'join');
 /*!40000 ALTER TABLE `JOIN_TRAINING` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,4 +160,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-23 15:42:24
+-- Dump completed on 2019-05-24 15:26:43
+
