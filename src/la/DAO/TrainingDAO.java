@@ -169,9 +169,9 @@ public class TrainingDAO {
         try {
             PreparedStatement pstmt = null;
             String sql = "insert into JOIN_TRAINING(training_id, trainee_id, state) values(?, ?, 'join')";
+            pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, trainingId);
             pstmt.setInt(2, traineeId);
-            pstmt = con.prepareStatement(sql);
             pstmt.executeUpdate();
 
         } catch (Exception e) {
@@ -189,9 +189,9 @@ public class TrainingDAO {
         try {
             PreparedStatement pstmt = null;
             String sql = "update JOIN_TRAINING set STATE='cancel' where training_id = ? and trainee_id = ?;";
+            pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, trainingId);
             pstmt.setInt(2, traineeId);
-            pstmt = con.prepareStatement(sql);
             pstmt.executeUpdate();
 
         } catch (Exception e) {
