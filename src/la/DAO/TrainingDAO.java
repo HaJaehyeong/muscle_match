@@ -34,13 +34,13 @@ public class TrainingDAO {
             // state(join, cancel) stateの値がない場合は、nullを返す（仕方なくnullを返すようにしている。）
             // MUSCLE_CATEGORY_NAME AREA_NAMEも取得
             String sql = "select *, jt.STATE, m.MUSCLE_CATEGORY_NAME, a.AREA_NAME " +
-                            "from TRAINING as tr" +
-                            "left outer join JOIN_TRAINING as jt" +
-                                "on tr.TRAINING_ID = jt.TRAINING_ID && tr.TRAINEE_ID = jt.TRAINEE_ID" +
-                            "inner join MUSCLE_CATEGORY as m" +
-                                "on tr.MUSCLE_CATEGORY_ID = m.MUSCLE_CATEGORY_ID" +
-                            "inner join AREA as a " +
-                                "on tr.AREA_ID = a.AREA_ID;";
+                    "from TRAINING as tr" +
+                    "left outer join JOIN_TRAINING as jt" +
+                    "on tr.TRAINING_ID = jt.TRAINING_ID && tr.TRAINEE_ID = jt.TRAINEE_ID" +
+                    "inner join MUSCLE_CATEGORY as m" +
+                    "on tr.MUSCLE_CATEGORY_ID = m.MUSCLE_CATEGORY_ID" +
+                    "inner join AREA as a " +
+                    "on tr.AREA_ID = a.AREA_ID;";
 
             st = con.prepareStatement(sql);
             rs = st.executeQuery();
@@ -61,21 +61,20 @@ public class TrainingDAO {
         if(con == null) db.getConnection();
         try {
             String sql = "select * from TRAINING " +
-                            "where TRAINING.MUSCLE_CATEGORY_ID = ?" +
-                                "and" +
-                            "TRAINING.AREA_ID = ?" +
-                                "and" +
-                            "TRAINING.DATE = ?";
+                    "where TRAINING.MUSCLE_CATEGORY_ID = ?" +
+                    "and" +
+                    "TRAINING.AREA_ID = ?" +
+                    "and" +
+                    "TRAINING.DATE = ?";
 
             st = con.prepareStatement(sql);
             st.setInt(1, muscleCategoryId);
             st.setInt(2, areaId);
 
-            // 2019-06-01 19:00:00のような文字列にフォーマットを整える
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            LocalDateTime dateTimeData = LocalDateTime.parse(date, dtf);
-            String dateTimeDataStr = dateTimeData.toString();
-            st.setString(3, dateTimeDataStr);
+            // TODO: String DateをDateTimeに変更する
+//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//            LocalDateTime dateTimeData = LocalDateTime.parse(date, dtf);
+//            st.setDate(3, dateTimeData);
 
             rs = st.executeQuery();
             List<TrainingBean> list = new ArrayList<>();
@@ -97,33 +96,6 @@ public class TrainingDAO {
         try {
             String sql = "select * from TRAINING where TRAINING.TRAINEE_ID = ?";
 
-            st = con.prepareStatement(sql);
-            st.setInt(1, traineeId);
-            rs = st.executeQuery();
-            List<TrainingBean> list = new ArrayList<>();
-            while (rs.next()) {
-                createTrainingBeanList(list, rs);
-            }
-            return list;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new DAOException("レコードの取得に失敗しました。");
-        } finally {
-            db.closeResources(st, rs, con);
-        }
-    }
-
-    public List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) throws DAOException{
-        if(con == null) db.getConnection();
-        try {
-            String sql = "select * from JOIN_TRAINING as jt" +
-                            "inner join TRAINING as tr" +
-                                "on tr.TRAINING_ID = jt.TRAINING_ID" +
-                            "inner join MUSCLE_CATEGORY as mc" +
-                                "on tr.MUSCLE_CATEGORY_ID = mc.MUSCLE_CATEGORY_ID" +
-                            "inner join AREA as ar" +
-                                "on tr.AREA_ID = ar.AREA_ID" +
-                            "where jt.TRAINEE_ID = ?;";
             st = con.prepareStatement(sql);
             st.setInt(1, traineeId);
             rs = st.executeQuery();
@@ -162,12 +134,49 @@ public class TrainingDAO {
 
     }
 
-    public void joinTraining(int trainingId, int traineeId) {
+//    public List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) {
+//
+//    }
 
+    // 참가 버튼을 누르면 레코드 추가
+    public void joinTraining(int trainingId, int traineeId) throws DAOException{
+        if(con == null)
+            db.getConnection();
+
+        try {
+            PreparedStatement pstmt = null;
+            String sql = "insert into JOIN_TRAINING(training_id, trainee_id, state) values(?, ?, 'join')";
+            pstmt.setInt(1, trainingId);
+            pstmt.setInt(2, traineeId);
+            pstmt = con.prepareStatement(sql);
+            pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DAOException("レコードの挿入に失敗しました。");
+        } finally {
+            db.closeResources(st, rs, con);
+        }
     }
 
-    public void cancelTraining(int trainingId, int traineeId) {
+    public void cancelTraining(int trainingId, int traineeId) throws DAOException{
+        if(con == null)
+            db.getConnection();
 
+        try {
+            PreparedStatement pstmt = null;
+            String sql = "update JOIN_TRAINING set state = 2 where training_id = ? and trainee_id = ?;";
+            pstmt.setInt(1, trainingId);
+            pstmt.setInt(2, traineeId);
+            pstmt = con.prepareStatement(sql);
+            pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DAOException("レコードの挿入に失敗しました。");
+        } finally {
+            db.closeResources(st, rs, con);
+        }
     }
 
 //    void createTraining() {
