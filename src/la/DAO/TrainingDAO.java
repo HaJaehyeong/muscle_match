@@ -6,8 +6,11 @@ import la.bean.TrainingBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -33,6 +36,8 @@ public class TrainingDAO {
             // training_tableとjoin_taraining tebleを外部結合することで、検索したユーザーがどのトレーニングに参加しているのかを
             // 判断する stateカラムを取得することができる
             // state(join, cancel) stateの値がない場合は、nullを返す（仕方なくnullを返すようにしている。）
+
+            // TODO: muscleCategoryNameとareaNameも結合して、一個のリストに入れる
             String sql = "select *, jt.state" +
                     "from training as tr left outer join join_training as jt" +
                     "on tr.taining.id = jt.training_id" +
@@ -51,6 +56,41 @@ public class TrainingDAO {
             db.closeResources(st, rs, con);
         }
     }
+
+    public List<TrainingBean> findTrainingByFilter(int muscleCategoryId, int areaId, String date) throws DAOException {
+        if(con == null) db.getConnection(con);
+        try {
+            String sql = "select * from TRAINING " +
+                            "where TRAINING.MUSCLE_CATEGORY_ID = ?" +
+                                "and" +
+                            "TRAINING.AREA_ID = ?" +
+                                "and" +
+                            "TRAINING.DATE = ?";
+
+            st = con.prepareStatement(sql);
+            st.setInt(1, muscleCategoryId);
+            st.setInt(2, areaId);
+
+            // TODO: String DateをDateTimeに変更する
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime dateTimeData = LocalDateTime.parse(date, dtf);
+            st.setDate(3, dateTimeData);
+
+            rs = st.executeQuery();
+            List<TrainingBean> list = new ArrayList<>();
+            while (rs.next()) {
+                createTrainingBeanList(list, rs);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DAOException("レコードの取得に失敗しました。");
+        } finally {
+            db.closeResources(st, rs, con);
+        }
+
+    }
+
 
     private void createTrainingBeanList(List<TrainingBean> list, ResultSet rs) throws DAOException{
         try {
