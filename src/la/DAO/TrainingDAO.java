@@ -2,14 +2,10 @@ package la.DAO;
 import la.DbManager;
 import la.bean.TrainingBean;
 
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,7 +22,7 @@ public class TrainingDAO {
         con = db.getConnection(con);
     }
 
-    public List<TrainingBean> findAllTraining() throws DAOException{
+    public List<TrainingBean> findAllTraining() throws DAOException, SQLException {
         // 全てのトレーニングを取得する
         if(con == null) {
             con = db.getConnection(con);
@@ -61,7 +57,7 @@ public class TrainingDAO {
         }
     }
 
-    public List<TrainingBean> findTrainingByFilter(int muscleCategoryId, int areaId, String date) throws DAOException {
+    public List<TrainingBean> findTrainingByFilter(int muscleCategoryId, int areaId, String date) throws DAOException, SQLException {
         if(con == null) db.getConnection(con);
         try {
             String sql = "select * from TRAINING " +
@@ -138,7 +134,6 @@ public class TrainingDAO {
 
     }
 
-
     public List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) {
 
     }
@@ -162,5 +157,4 @@ public class TrainingDAO {
 //    void removeTraining() {
 //
 //    }
-
 }
