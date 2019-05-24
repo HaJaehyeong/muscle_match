@@ -70,11 +70,11 @@ public class TrainingDAO {
             st = con.prepareStatement(sql);
             st.setInt(1, muscleCategoryId);
             st.setInt(2, areaId);
-
-            // TODO: String DateをDateTimeに変更する
-//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//            LocalDateTime dateTimeData = LocalDateTime.parse(date, dtf);
-//            st.setDate(3, dateTimeData);
+            // 2019-06-01 19:00:00のような文字列にフォーマットを整える
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime dateTimeData = LocalDateTime.parse(date, dtf);
+            String dateTimeDataStr = dateTimeData.toString();
+            st.setString(3, dateTimeDataStr);
 
             rs = st.executeQuery();
             List<TrainingBean> list = new ArrayList<>();
@@ -134,9 +134,32 @@ public class TrainingDAO {
 
     }
 
-//    public List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) {
-//
-//    }
+    public List<TrainingBean> findJoinedTrainingByTrainee(int traineeId) throws DAOException{
+        if(con == null) db.getConnection();
+        try {
+            String sql = "select * from JOIN_TRAINING as jt" +
+                    "inner join TRAINING as tr" +
+                    "on tr.TRAINING_ID = jt.TRAINING_ID" +
+                    "inner join MUSCLE_CATEGORY as mc" +
+                    "on tr.MUSCLE_CATEGORY_ID = mc.MUSCLE_CATEGORY_ID" +
+                    "inner join AREA as ar" +
+                    "on tr.AREA_ID = ar.AREA_ID" +
+                    "where jt.TRAINEE_ID = ?;";
+            st = con.prepareStatement(sql);
+            st.setInt(1, traineeId);
+            rs = st.executeQuery();
+            List<TrainingBean> list = new ArrayList<>();
+            while (rs.next()) {
+                createTrainingBeanList(list, rs);
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DAOException("レコードの取得に失敗しました。");
+        } finally {
+            db.closeResources(st, rs, con);
+        }
+    }
 
     // 참가 버튼을 누르면 레코드 추가
     public void joinTraining(int trainingId, int traineeId) throws DAOException{
