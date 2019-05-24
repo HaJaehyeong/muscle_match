@@ -35,12 +35,12 @@ public class TrainingDAO {
             // MUSCLE_CATEGORY_NAME AREA_NAMEも取得
             String sql = "select *, jt.STATE, m.MUSCLE_CATEGORY_NAME, a.AREA_NAME " +
                     "from TRAINING as tr" +
-                    "left outer join JOIN_TRAINING as jt" +
-                    "on tr.TRAINING_ID = jt.TRAINING_ID && tr.TRAINEE_ID = jt.TRAINEE_ID" +
-                    "inner join MUSCLE_CATEGORY as m" +
-                    "on tr.MUSCLE_CATEGORY_ID = m.MUSCLE_CATEGORY_ID" +
-                    "inner join AREA as a " +
-                    "on tr.AREA_ID = a.AREA_ID;";
+                    " left outer join JOIN_TRAINING as jt" +
+                    " on tr.TRAINING_ID = jt.TRAINING_ID && tr.TRAINEE_ID = jt.TRAINEE_ID" +
+                    " inner join MUSCLE_CATEGORY as m" +
+                    " on tr.MUSCLE_CATEGORY_ID = m.MUSCLE_CATEGORY_ID" +
+                    " inner join AREA as a " +
+                    " on tr.AREA_ID = a.AREA_ID;";
 
             st = con.prepareStatement(sql);
             rs = st.executeQuery();
@@ -62,9 +62,9 @@ public class TrainingDAO {
         try {
             String sql = "select * from TRAINING " +
                     "where TRAINING.MUSCLE_CATEGORY_ID = ?" +
-                    "and" +
+                    " and " +
                     "TRAINING.AREA_ID = ?" +
-                    "and" +
+                    " and " +
                     "TRAINING.DATE = ?";
 
             st = con.prepareStatement(sql);
@@ -165,7 +165,7 @@ public class TrainingDAO {
 
         try {
             PreparedStatement pstmt = null;
-            String sql = "update JOIN_TRAINING set state = 2 where training_id = ? and trainee_id = ?;";
+            String sql = "update JOIN_TRAINING set STATE='cancel' where training_id = ? and trainee_id = ?;";
             pstmt.setInt(1, trainingId);
             pstmt.setInt(2, traineeId);
             pstmt = con.prepareStatement(sql);
